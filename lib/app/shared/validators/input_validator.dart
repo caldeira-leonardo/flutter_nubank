@@ -52,7 +52,11 @@ class InputValidator {
     const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
     final regExp = RegExp(pattern);
 
-    if (value != null && value.isNotEmpty && !regExp.hasMatch(value)) {
+    if (value == null || value.isEmpty) {
+      return 'Campo obrigatório';
+    }
+
+    if (!regExp.hasMatch(value)) {
       return 'Email inválido';
     }
 

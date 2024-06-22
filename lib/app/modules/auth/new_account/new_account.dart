@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../shared/spaces/spacing.dart';
@@ -12,6 +14,8 @@ class NewAccount extends StatefulWidget {
 }
 
 class _NewAccountState extends State<NewAccount> {
+  final _formKey = GlobalKey<FormState>();
+
   late TextEditingController name;
   late TextEditingController password;
   late TextEditingController confirmPassword;
@@ -24,6 +28,14 @@ class _NewAccountState extends State<NewAccount> {
     email = TextEditingController();
 
     super.initState();
+  }
+
+  Future<void> _submit() async {
+    if (_formKey.currentState!.validate()) {
+      log('Validado');
+    } else {
+      log('Formulário inválido');
+    }
   }
 
   @override
@@ -39,59 +51,63 @@ class _NewAccountState extends State<NewAccount> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomTextInput(
-                      label: 'Nome',
-                      controller: name,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: InputValidator.required,
-                    ),
-                    Spacing.md.vertical,
-                    CustomTextInput(
-                      label: 'Email',
-                      controller: email,
-                      keyboardType: TextInputType.text,
-                      validator: InputValidator.emailIsValid,
-                    ),
-                    Spacing.md.vertical,
-                    CustomTextInput(
-                      label: 'Password',
-                      controller: password,
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
-                    Spacing.md.vertical,
-                    CustomTextInput(
-                      label: 'Confirmar password',
-                      controller: confirmPassword,
-                      isPassword: true,
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
-                    Spacing.md.vertical,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(
-                                Theme.of(context).colorScheme.surface,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomTextInput(
+                        label: 'Nome',
+                        controller: name,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: InputValidator.required,
+                      ),
+                      Spacing.md.vertical,
+                      CustomTextInput(
+                        label: 'Email',
+                        controller: email,
+                        keyboardType: TextInputType.text,
+                        validator: InputValidator.emailIsValid,
+                      ),
+                      Spacing.md.vertical,
+                      CustomTextInput(
+                        label: 'Password',
+                        controller: password,
+                        isPassword: true,
+                        keyboardType: TextInputType.visiblePassword,
+                      ),
+                      Spacing.md.vertical,
+                      CustomTextInput(
+                        label: 'Confirmar password',
+                        controller: confirmPassword,
+                        isPassword: true,
+                        keyboardType: TextInputType.visiblePassword,
+                      ),
+                      Spacing.md.vertical,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextButton(
+                              onPressed: _submit,
+                              style: ButtonStyle(
+                                backgroundColor: WidgetStateProperty.all(
+                                  Theme.of(context).colorScheme.surface,
+                                ),
                               ),
-                            ),
-                            child: Text(
-                              'Criar conta ',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontWeight: FontWeight.w900,
+                              child: Text(
+                                'Criar conta ',
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  fontWeight: FontWeight.w900,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
