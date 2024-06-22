@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/spaces/spacing.dart';
 import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
+import '../../../shared/validators/validator.dart';
 
 class NewAccount extends StatefulWidget {
   const NewAccount({super.key});
@@ -13,12 +14,13 @@ class NewAccount extends StatefulWidget {
 class _NewAccountState extends State<NewAccount> {
   late TextEditingController name;
   late TextEditingController password;
+  late TextEditingController confirmPassword;
   late TextEditingController email;
-
   @override
   void initState() {
     name = TextEditingController();
     password = TextEditingController();
+    confirmPassword = TextEditingController();
     email = TextEditingController();
 
     super.initState();
@@ -42,20 +44,30 @@ class _NewAccountState extends State<NewAccount> {
                   children: [
                     CustomTextInput(
                       label: 'Nome',
-                      controller: email,
+                      controller: name,
                       keyboardType: TextInputType.emailAddress,
+                      validator: InputValidator.required,
                     ),
                     Spacing.md.vertical,
                     CustomTextInput(
                       label: 'Email',
-                      controller: password,
+                      controller: email,
                       keyboardType: TextInputType.text,
+                      validator: InputValidator.emailIsValid,
                     ),
                     Spacing.md.vertical,
                     CustomTextInput(
                       label: 'Password',
                       controller: password,
-                      keyboardType: TextInputType.text,
+                      isPassword: true,
+                      keyboardType: TextInputType.visiblePassword,
+                    ),
+                    Spacing.md.vertical,
+                    CustomTextInput(
+                      label: 'Confirmar password',
+                      controller: confirmPassword,
+                      isPassword: true,
+                      keyboardType: TextInputType.visiblePassword,
                     ),
                     Spacing.md.vertical,
                     Row(

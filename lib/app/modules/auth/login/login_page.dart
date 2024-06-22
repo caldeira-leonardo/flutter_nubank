@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/spaces/spacing.dart';
 import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
-import '../../../shared/validators/navigator_helper.dart';
+import '../../../shared/validators/validator.dart';
 import '../auth_routing.dart';
 
 class LoginPage extends StatefulWidget {

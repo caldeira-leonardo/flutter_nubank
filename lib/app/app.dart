@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'modules/modules.dart';
-import 'shared/ui/widgets/theme/theme.dart';
-import 'shared/ui/widgets/theme/util.dart';
+import 'shared/ui/theme/theme.dart';
+import 'shared/ui/theme/util.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

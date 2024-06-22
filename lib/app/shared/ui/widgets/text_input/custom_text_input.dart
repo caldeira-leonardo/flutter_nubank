@@ -10,6 +10,7 @@ class CustomTextInput extends StatefulWidget {
   final void Function(String)? onChanged;
   final FocusNode? focusNode;
   final int? maxLines;
+  final bool isPassword;
 
   const CustomTextInput({
     required this.label,
@@ -20,6 +21,7 @@ class CustomTextInput extends StatefulWidget {
     this.onChanged,
     this.focusNode,
     this.maxLines,
+    this.isPassword = false,
     this.keyboardType = TextInputType.text,
   });
 
@@ -34,9 +36,10 @@ class _CustomTextInputState extends State<CustomTextInput> {
       onChanged: widget.onChanged,
       focusNode: widget.focusNode,
       controller: widget.controller,
-      maxLines: widget.maxLines,
+      obscureText: widget.isPassword,
+      maxLines: widget.isPassword ? 1 : widget.maxLines,
       cursorColor: Theme.of(context).colorScheme.primary,
-      cursorErrorColor: Colors.red.shade300,
+      cursorErrorColor: Colors.red,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.normal,
