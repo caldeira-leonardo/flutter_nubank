@@ -8,16 +8,16 @@ class MaterialTheme {
   static ColorScheme lightScheme() {
     return const ColorScheme(
       brightness: Brightness.light,
-      primary: Color(0xff6e00af),
+      primary: Color(0xff81269D),
       surfaceTint: Color(0xff8b1cd7),
       onPrimary: Color(0xffffffff),
       primaryContainer: Color(0xff9a32e6),
       onPrimaryContainer: Color(0xffffffff),
-      secondary: Color(0xff5d5f5f),
+      secondary: Color(0xff81269D),
       onSecondary: Color(0xffffffff),
       secondaryContainer: Color(0xffffffff),
       onSecondaryContainer: Color(0xff575859),
-      tertiary: Color(0xff5d5f5f),
+      tertiary: Color(0xff81269D),
       onTertiary: Color(0xffffffff),
       tertiaryContainer: Color(0xffffffff),
       onTertiaryContainer: Color(0xff575859),
@@ -173,7 +173,7 @@ class MaterialTheme {
   static ColorScheme darkScheme() {
     return const ColorScheme(
       brightness: Brightness.dark,
-      primary: Color(0xffe1b6ff),
+      primary: Color(0xff591E8C),
       surfaceTint: Color(0xffe1b6ff),
       onPrimary: Color(0xff4c007c),
       primaryContainer: Color(0xff8100cd),

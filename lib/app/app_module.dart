@@ -1,12 +1,12 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'modules/home/home_page.dart';
-import 'modules/login/login_page.dart';
+import 'app_routing.dart';
+import 'modules/modules.dart';
 
 class AppModule extends Module {
   @override
   void routes(r) {
-    r.child('/', child: (_) => const LoginPage());
-    r.child('/home', child: (_) => const HomePage());
+    r.module(AppRouteNames.auth.path, module: AuthModule());
+    r.child(AppRouteNames.dashboard.path, child: (_) => const HomePage());
   }
 }

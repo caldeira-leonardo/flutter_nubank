@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'modules/ui/theme/theme.dart';
-import 'modules/ui/theme/util.dart';
+import 'modules/modules.dart';
+import 'shared/ui/widgets/theme/theme.dart';
+import 'shared/ui/widgets/theme/util.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final brightness = View.of(context).platformDispatcher.platformBrightness;
+    Modular.setInitialRoute(AuthRouteNames.login.fullpath);
 
     TextTheme textTheme = createTextTheme(context, 'Roboto', 'Roboto');
 
     MaterialTheme theme = MaterialTheme(textTheme);
 
-    return MaterialApp(
+    return MaterialApp.router(
       theme: theme.light(),
       darkTheme: theme.dark(),
-      // themeMode: ThemeMode.dark,0
       themeMode: ThemeMode.dark,
-      home: MaterialApp.router(
-        routerDelegate: Modular.routerDelegate,
-        routeInformationParser: Modular.routeInformationParser,
-      ),
+      routerDelegate: Modular.routerDelegate,
+      routeInformationParser: Modular.routeInformationParser,
     );
   }
 }

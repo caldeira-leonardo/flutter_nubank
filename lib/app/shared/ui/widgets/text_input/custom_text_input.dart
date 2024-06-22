@@ -35,7 +35,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
       focusNode: widget.focusNode,
       controller: widget.controller,
       maxLines: widget.maxLines,
-      cursorColor: Colors.blue.shade300,
+      cursorColor: Theme.of(context).colorScheme.primary,
       cursorErrorColor: Colors.red.shade300,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -57,23 +57,23 @@ class _CustomTextInputState extends State<CustomTextInput> {
         labelText: widget.label,
         contentPadding: const EdgeInsets.all(12),
         floatingLabelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.normal,
-              color: Colors.blue.shade300,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
         labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.normal,
-              color: Colors.grey.shade300,
+              color: Colors.black54,
             ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
-            color: Colors.grey,
+            color: Colors.black,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
-            color: Colors.blue,
+            color: Colors.transparent,
           ),
         ),
         enabledBorder: OutlineInputBorder(
@@ -94,6 +94,6 @@ class _CustomTextInputState extends State<CustomTextInput> {
             color: Colors.white,
           ),
         ),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
       );
 }
