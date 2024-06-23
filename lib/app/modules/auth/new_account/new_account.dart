@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/services/auth_service.dart';
-import '../../../app_routing.dart';
 import '../../../shared/spaces/spacing.dart';
 import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
 import '../../../shared/validators/validator.dart';
@@ -39,8 +38,8 @@ class _NewAccountState extends State<NewAccount> {
         password.text == confirmPassword.text) {
       auth.registrar(email: email.text, password: password.text);
 
-      log('deu merda aqui');
-      NavigatorHelper.pushNamed(AppRouteNames.dashboard.fullpath);
+      log('registrado com sucesso');
+      // NavigatorHelper.pushNamed(AppRouteNames.dashboard.fullpath);
     } else {
       log('Formulário inválido');
     }
@@ -77,6 +76,10 @@ class _NewAccountState extends State<NewAccount> {
                         controller: password,
                         isPassword: true,
                         keyboardType: TextInputType.visiblePassword,
+                        validator: (value) => InputValidator.minimumLenght(
+                          minimun: 8,
+                          value: value,
+                        ),
                       ),
                       Spacing.md.vertical,
                       CustomTextInput(
@@ -84,6 +87,10 @@ class _NewAccountState extends State<NewAccount> {
                         controller: confirmPassword,
                         isPassword: true,
                         keyboardType: TextInputType.visiblePassword,
+                        validator: (value) => InputValidator.isStringEqual(
+                          value: value,
+                          confirmation: password.text,
+                        ),
                       ),
                       Spacing.md.vertical,
                       Row(

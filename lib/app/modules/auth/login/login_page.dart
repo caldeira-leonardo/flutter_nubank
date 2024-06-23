@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/services/auth_service.dart';
+import '../../../app_routing.dart';
 import '../../../shared/spaces/spacing.dart';
 import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
 import '../../../shared/validators/validator.dart';
@@ -37,12 +38,25 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() async {
     if (_formKey.currentState!.validate()) {
-      auth.login(email: email.text, password: password.text);
+      final resp = await auth.login(email: email.text, password: password.text);
+
+      if (resp == 'success') {
+        NavigatorHelper.pushNamed(AppRouteNames.dashboard.fullpath);
+      } else {
+        //TODO: Colocar o tolltip
+      }
     }
   }
 
   void _googleLogin() {
     log('Login com google');
+  }
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,13 +77,15 @@ class _LoginPageState extends State<LoginPage> {
                       CustomTextInput(
                         label: 'Email',
                         controller: email,
+                        validator: InputValidator.emailIsValid,
                         keyboardType: TextInputType.emailAddress,
                       ),
                       Spacing.md.vertical,
                       CustomTextInput(
                         label: 'Senha',
                         controller: password,
-                        keyboardType: TextInputType.text,
+                        isPassword: true,
+                        keyboardType: TextInputType.visiblePassword,
                       ),
                       Spacing.md.vertical,
                       Row(

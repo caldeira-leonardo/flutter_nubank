@@ -62,4 +62,25 @@ class InputValidator {
 
     return null;
   }
+
+  static String? minimumLenght({
+    required int minimun,
+    String? value,
+  }) {
+    if (value == null || value.isEmpty) {
+      return 'Campo obrigatório';
+    }
+
+    if (value.length < minimun) {
+      return 'Mínimo de $minimun caracteres';
+    }
+
+    return null;
+  }
+
+  static String? isStringEqual({String? value, String? confirmation}) {
+    if (value == confirmation) return null;
+
+    return 'Valores não batem';
+  }
 }

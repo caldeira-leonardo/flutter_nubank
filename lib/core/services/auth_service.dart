@@ -30,6 +30,8 @@ class AuthService extends ChangeNotifier {
 
   void _getUser() {
     usuario = _auth.currentUser;
+
+    log('uruário atualizado', name: '_getUser');
     notifyListeners();
   }
 
@@ -49,7 +51,17 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  void login({required String email, required String password}) async {
+  String handleAuthException(FirebaseAuthException err) {
+    switch (err.code) {
+      case 'invalid-credential':
+        return 'Credneciais invalidas';
+      default:
+        return '';
+    }
+  }
+
+  Future<String> login(
+      {required String email, required String password}) async {
     try {
       await _auth.signInWithEmailAndPassword(
         email: email,
@@ -57,11 +69,12 @@ class AuthService extends ChangeNotifier {
       );
 
       _getUser();
+
+      return 'Success';
     } on FirebaseAuthException catch (err) {
-      log(err.code);
-      if (err.code == 'weak') {
-        throw AuthException('Senha fraca');
-      }
+      log(err.code, name: 'FirebaseAuthException');
+
+      return handleAuthException(err);
     }
   }
 
