@@ -1,7 +1,11 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../core/services/auth_service.dart';
+import '../../../app_routing.dart';
 import '../../../shared/spaces/spacing.dart';
 import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
 import '../../../shared/validators/validator.dart';
@@ -14,15 +18,15 @@ class NewAccount extends StatefulWidget {
 }
 
 class _NewAccountState extends State<NewAccount> {
+  final auth = Modular.get<AuthService>();
   final _formKey = GlobalKey<FormState>();
 
-  late TextEditingController name;
   late TextEditingController password;
   late TextEditingController confirmPassword;
   late TextEditingController email;
+
   @override
   void initState() {
-    name = TextEditingController();
     password = TextEditingController();
     confirmPassword = TextEditingController();
     email = TextEditingController();
@@ -31,8 +35,12 @@ class _NewAccountState extends State<NewAccount> {
   }
 
   Future<void> _submit() async {
-    if (_formKey.currentState!.validate()) {
-      log('Validado');
+    if (_formKey.currentState!.validate() &&
+        password.text == confirmPassword.text) {
+      auth.registrar(email: email.text, password: password.text);
+
+      log('deu merda aqui');
+      NavigatorHelper.pushNamed(AppRouteNames.dashboard.fullpath);
     } else {
       log('Formulário inválido');
     }
@@ -56,12 +64,6 @@ class _NewAccountState extends State<NewAccount> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomTextInput(
-                        label: 'Nome',
-                        controller: name,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: InputValidator.required,
-                      ),
                       Spacing.md.vertical,
                       CustomTextInput(
                         label: 'Email',

@@ -1,8 +1,14 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../../core/services/auth_service.dart';
 import '../../../shared/spaces/spacing.dart';
 import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
 import '../../../shared/validators/validator.dart';
+import '../../../shared/widgets/custom_divider.dart';
 import '../auth_routing.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +19,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final auth = Modular.get<AuthService>();
+
+  final _formKey = GlobalKey<FormState>();
+  late dynamic user;
+
   late TextEditingController email;
   late TextEditingController password;
 
@@ -22,6 +33,16 @@ class _LoginPageState extends State<LoginPage> {
     password = TextEditingController();
 
     super.initState();
+  }
+
+  void _login() async {
+    if (_formKey.currentState!.validate()) {
+      auth.login(email: email.text, password: password.text);
+    }
+  }
+
+  void _googleLogin() {
+    log('Login com google');
   }
 
   @override
@@ -34,64 +55,93 @@ class _LoginPageState extends State<LoginPage> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomTextInput(
-                      label: 'Email',
-                      controller: email,
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    Spacing.md.vertical,
-                    CustomTextInput(
-                      label: 'Senha',
-                      controller: password,
-                      keyboardType: TextInputType.text,
-                    ),
-                    Spacing.md.vertical,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextButton(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomTextInput(
+                        label: 'Email',
+                        controller: email,
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      Spacing.md.vertical,
+                      CustomTextInput(
+                        label: 'Senha',
+                        controller: password,
+                        keyboardType: TextInputType.text,
+                      ),
+                      Spacing.md.vertical,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextButton(
+                              onPressed: _login,
+                              style: ButtonStyle(
+                                backgroundColor: WidgetStateProperty.all(
+                                  Theme.of(context).colorScheme.surface,
+                                ),
+                              ),
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacing.xs.vertical,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
                             onPressed: () {},
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all(
-                                Theme.of(context).colorScheme.surface,
+                                Theme.of(context).colorScheme.primary,
                               ),
                             ),
                             child: Text(
-                              'Login',
+                              'Esqueci minha senha',
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary,
-                                fontWeight: FontWeight.w900,
+                                // fontWeight: FontWeight.w900,
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Spacing.xs.vertical,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor: WidgetStateProperty.all(
-                              Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                          child: Text(
-                            'Esqueci minha senha',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontWeight: FontWeight.w900,
-                            ),
+                        ],
+                      ),
+                      const CustomDivider(),
+                      Spacing.xs.vertical,
+                      Text(
+                        'Logar com redes sociais',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      Spacing.xs.vertical,
+                      TextButton.icon(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(
+                            Theme.of(context).colorScheme.surface,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                        onPressed: _googleLogin,
+                        label: Text(
+                          'Google',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                        icon: FaIcon(
+                          FontAwesomeIcons.google,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../core/services/auth_service.dart';
+import 'app_routing.dart';
 import 'modules/modules.dart';
 import 'shared/ui/theme/theme.dart';
 import 'shared/ui/theme/util.dart';
@@ -10,7 +12,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Modular.setInitialRoute(AuthRouteNames.login.fullpath);
+    final auth = Modular.get<AuthService>();
+
+    Modular.setInitialRoute(
+      auth.usuario == null
+          ? AuthRouteNames.login.fullpath
+          : AppRouteNames.dashboard.fullpath,
+    );
 
     TextTheme textTheme = createTextTheme(context, 'Roboto', 'Roboto');
 

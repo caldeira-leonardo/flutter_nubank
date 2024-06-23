@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "83829588614",
+    "project_id": "nubank-roadmap-1",
+    "storage_bucket": "nubank-roadmap-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83829588614:android:f2934bc9f83106b8070707",
+        "android_client_info": {
+          "package_name": "com.example.nubank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9E8qPMNQ_ALd0OTKyS8mS84MZtFguolI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

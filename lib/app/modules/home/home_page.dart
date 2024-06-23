@@ -12,12 +12,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Com layout ou não',
           style: TextStyle(color: Colors.amber),
         ),
       ),
-      body: Text(
+      body: const Text(
         'Conteudo',
         style: TextStyle(color: Colors.amber),
       ),
