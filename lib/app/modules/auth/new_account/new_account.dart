@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/services/auth_service.dart';
+import '../../../app_routing.dart';
 import '../../../shared/spaces/spacing.dart';
 import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
 import '../../../shared/validators/validator.dart';
+import '../../../shared/widgets/snackbar.dart';
 
 class NewAccount extends StatefulWidget {
   const NewAccount({super.key});
@@ -33,13 +35,17 @@ class _NewAccountState extends State<NewAccount> {
     super.initState();
   }
 
-  Future<void> _submit() async {
+  Future<void> _submit(context) async {
     if (_formKey.currentState!.validate() &&
         password.text == confirmPassword.text) {
-      auth.registrar(email: email.text, password: password.text);
+      final resp =
+          await auth.registrar(email: email.text, password: password.text);
 
-      log('registrado com sucesso');
-      // NavigatorHelper.pushNamed(AppRouteNames.dashboard.fullpath);
+      if (resp == 'Success') {
+        NavigatorHelper.pushNamed(AppRouteNames.dashboard.fullpath);
+      } else {
+        Snackbar.show(context: context, content: Text(resp));
+      }
     } else {
       log('Formulário inválido');
     }
@@ -97,7 +103,7 @@ class _NewAccountState extends State<NewAccount> {
                         children: [
                           Expanded(
                             child: TextButton(
-                              onPressed: _submit,
+                              onPressed: () => _submit(context),
                               style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all(
                                   Theme.of(context).colorScheme.surface,

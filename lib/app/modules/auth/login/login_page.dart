@@ -10,6 +10,7 @@ import '../../../shared/spaces/spacing.dart';
 import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
 import '../../../shared/validators/validator.dart';
 import '../../../shared/widgets/custom_divider.dart';
+import '../../../shared/widgets/snackbar.dart';
 import '../auth_routing.dart';
 
 class LoginPage extends StatefulWidget {
@@ -36,20 +37,21 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
-  void _login() async {
+  void _login(context) async {
     if (_formKey.currentState!.validate()) {
       final resp = await auth.login(email: email.text, password: password.text);
 
-      if (resp == 'success') {
+      log(resp);
+      if (resp == 'Success') {
         NavigatorHelper.pushNamed(AppRouteNames.dashboard.fullpath);
       } else {
-        //TODO: Colocar o tolltip
+        Snackbar.show(context: context, content: Text(resp));
       }
     }
   }
 
-  void _googleLogin() {
-    log('Login com google');
+  void _googleLogin(context) {
+    Snackbar.show(context: context, content: const Text('F Totalis'));
   }
 
   @override
@@ -92,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Expanded(
                             child: TextButton(
-                              onPressed: _login,
+                              onPressed: () => _login(context),
                               style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all(
                                   Theme.of(context).colorScheme.surface,
@@ -144,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                             Theme.of(context).colorScheme.surface,
                           ),
                         ),
-                        onPressed: _googleLogin,
+                        onPressed: () => _googleLogin(context),
                         label: Text(
                           'Google',
                           style: TextStyle(
