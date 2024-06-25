@@ -11,6 +11,7 @@ import '../../../shared/ui/widgets/text_input/custom_text_input.dart';
 import '../../../shared/validators/validator.dart';
 import '../../../shared/widgets/custom_divider.dart';
 import '../../../shared/widgets/snackbar.dart';
+import '../../../shared/widgets/custom_theme_switcher.dart';
 import '../auth_routing.dart';
 
 class LoginPage extends StatefulWidget {
@@ -189,6 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
+            const ThemeSwitcher(),
           ],
         ),
       ),

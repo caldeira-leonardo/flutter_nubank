@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../core/contexts/theme_context.dart';
 import '../core/services/auth_service.dart';
 import 'app_routing.dart';
 import 'modules/modules.dart';
@@ -13,6 +14,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Modular.get<AuthService>();
+    final themeContext = Modular.get<ThemeContext>();
 
     Modular.setInitialRoute(
       auth.usuario == null
@@ -27,7 +29,7 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       theme: theme.light(),
       darkTheme: theme.dark(),
-      themeMode: ThemeMode.dark,
+      themeMode: themeContext.theme,
       routerDelegate: Modular.routerDelegate,
       routeInformationParser: Modular.routeInformationParser,
     );

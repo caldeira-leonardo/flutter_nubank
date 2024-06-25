@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../shared/spaces/spacing.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -11,15 +13,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Com layout ou não',
-          style: TextStyle(color: Colors.amber),
-        ),
-      ),
-      body: const Text(
-        'Conteudo',
-        style: TextStyle(color: Colors.amber),
+      body: Column(
+        children: [
+          Spacing.lg.vertical,
+          const Text(
+            'Conteudo',
+            style: TextStyle(color: Colors.amber),
+          ),
+        ],
       ),
     );
   }
