@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../core/contexts/show_and_hide_amount_context.dart';
 import '../core/contexts/theme_context.dart';
 import '../core/services/auth_service.dart';
 import 'app_routing.dart';
@@ -10,6 +11,7 @@ class AppModule extends Module {
   void binds(Injector i) {
     i.addInstance<AuthService>(AuthService());
     i.addInstance<ThemeContext>(ThemeContext());
+    i.addInstance<ShowAndHideAmountContext>(ShowAndHideAmountContext());
     super.binds(i);
   }
 
