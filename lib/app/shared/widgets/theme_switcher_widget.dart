@@ -1,17 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 import '../../../core/contexts/theme_context.dart';
 
-class ThemeSwitcher extends StatefulWidget {
-  const ThemeSwitcher({super.key});
+class ThemeSwitcherWidget extends StatefulWidget {
+  const ThemeSwitcherWidget({super.key});
 
   @override
-  State<ThemeSwitcher> createState() => _ThemeSwitcherState();
+  State<ThemeSwitcherWidget> createState() => _ThemeSwitcherWidgetState();
 }
 
-class _ThemeSwitcherState extends State<ThemeSwitcher> {
+class _ThemeSwitcherWidgetState extends State<ThemeSwitcherWidget> {
   final themeContext = Modular.get<ThemeContext>();
   late bool isDark = false;
   @override
@@ -23,6 +25,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
   void handleToggleTheme(bool toDark) {
     themeContext.switchTheme(toDark);
     isDark = toDark;
+    log(isDark.toString());
     setState(() {});
   }
 

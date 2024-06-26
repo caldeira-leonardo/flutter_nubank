@@ -26,12 +26,17 @@ class App extends StatelessWidget {
 
     MaterialTheme theme = MaterialTheme(textTheme);
 
-    return MaterialApp.router(
-      theme: theme.light(),
-      darkTheme: theme.dark(),
-      themeMode: themeContext.theme,
-      routerDelegate: Modular.routerDelegate,
-      routeInformationParser: Modular.routeInformationParser,
+    return ListenableBuilder(
+      listenable: themeContext,
+      builder: (_, __) {
+        return MaterialApp.router(
+          theme: theme.light(),
+          darkTheme: theme.dark(),
+          themeMode: themeContext.theme,
+          routerDelegate: Modular.routerDelegate,
+          routeInformationParser: Modular.routeInformationParser,
+        );
+      },
     );
   }
 }
