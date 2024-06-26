@@ -33,6 +33,18 @@ class _ThemeSwitcherWidgetState extends State<ThemeSwitcherWidget> {
   Widget build(BuildContext context) {
     return FlutterSwitch(
       value: isDark,
+      inactiveIcon: Icon(
+        Icons.light_mode,
+        color: Theme.of(context).colorScheme.surface,
+      ),
+      activeIcon: Icon(
+        Icons.dark_mode,
+        color: Theme.of(context).colorScheme.secondary,
+      ),
+      activeToggleColor: Theme.of(context).colorScheme.primary,
+      inactiveToggleColor: Theme.of(context).colorScheme.primary,
+      activeColor: Theme.of(context).colorScheme.surface,
+      inactiveColor: Theme.of(context).colorScheme.surface,
       onToggle: (value) => handleToggleTheme(value),
     );
   }
