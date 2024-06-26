@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class ThemeContext extends ChangeNotifier {
@@ -7,10 +5,8 @@ class ThemeContext extends ChangeNotifier {
 
   void switchTheme(bool isDark) {
     if (isDark) {
-      log('entrou no Dark');
       _theme = ThemeMode.dark;
     } else {
-      log('entrou no light');
       _theme = ThemeMode.light;
     }
     notifyListeners();

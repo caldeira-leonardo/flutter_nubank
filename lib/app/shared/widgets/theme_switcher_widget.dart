@@ -31,21 +31,34 @@ class _ThemeSwitcherWidgetState extends State<ThemeSwitcherWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterSwitch(
-      value: isDark,
-      inactiveIcon: Icon(
-        Icons.light_mode,
-        color: Theme.of(context).colorScheme.surface,
+    return Container(
+      height: 35,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.horizontal(
+          left: Radius.circular(40),
+          right: Radius.circular(40),
+        ),
+        border:
+            Border.all(width: 1, color: Theme.of(context).colorScheme.primary),
       ),
-      activeIcon: Icon(
-        Icons.dark_mode,
-        color: Theme.of(context).colorScheme.secondary,
+      width: 70,
+      child: FlutterSwitch(
+        width: 70,
+        value: isDark,
+        inactiveIcon: Icon(
+          Icons.light_mode,
+          color: Theme.of(context).colorScheme.surface,
+        ),
+        activeIcon: Icon(
+          Icons.dark_mode,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        activeToggleColor: Theme.of(context).colorScheme.primary,
+        inactiveToggleColor: Theme.of(context).colorScheme.primary,
+        activeColor: Theme.of(context).colorScheme.surface,
+        inactiveColor: Theme.of(context).colorScheme.surface,
+        onToggle: (value) => handleToggleTheme(value),
       ),
-      activeToggleColor: Theme.of(context).colorScheme.primary,
-      inactiveToggleColor: Theme.of(context).colorScheme.primary,
-      activeColor: Theme.of(context).colorScheme.surface,
-      inactiveColor: Theme.of(context).colorScheme.surface,
-      onToggle: (value) => handleToggleTheme(value),
     );
   }
 }
