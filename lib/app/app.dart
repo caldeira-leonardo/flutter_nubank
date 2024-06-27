@@ -17,7 +17,7 @@ class App extends StatelessWidget {
     final themeContext = Modular.get<ThemeContext>();
 
     Modular.setInitialRoute(
-      auth.usuario == null
+      auth.user == null
           ? AuthRouteNames.login.fullpath
           : AppRouteNames.dashboard.fullpath,
     );
@@ -27,14 +27,19 @@ class App extends StatelessWidget {
     MaterialTheme theme = MaterialTheme(textTheme);
 
     return ListenableBuilder(
-      listenable: themeContext,
+      listenable: auth,
       builder: (_, __) {
-        return MaterialApp.router(
-          theme: theme.light(),
-          darkTheme: theme.dark(),
-          themeMode: themeContext.theme,
-          routerDelegate: Modular.routerDelegate,
-          routeInformationParser: Modular.routeInformationParser,
+        return ListenableBuilder(
+          listenable: themeContext,
+          builder: (_, __) {
+            return MaterialApp.router(
+              theme: theme.light(),
+              darkTheme: theme.dark(),
+              themeMode: themeContext.theme,
+              routerDelegate: Modular.routerDelegate,
+              routeInformationParser: Modular.routeInformationParser,
+            );
+          },
         );
       },
     );

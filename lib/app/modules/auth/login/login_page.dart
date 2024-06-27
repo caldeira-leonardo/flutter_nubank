@@ -13,6 +13,7 @@ import '../../../shared/widgets/custom_divider.dart';
 import '../../../shared/widgets/snackbar.dart';
 import '../auth_routing.dart';
 
+//TODO remover o arrasta pro lado para voltar para a antiga página;
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/services/auth_service.dart';
 import '../../shared/spaces/spacing.dart';
 import '../../shared/widgets/show_and_hide_amount.dart';
 import '../../shared/widgets/theme_switcher_widget.dart';
@@ -12,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final auth = Modular.get<AuthService>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +54,13 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      drawer: const Drawer(
+      drawer: Drawer(
         child: Column(
           children: [
-            Text('data'),
-            Text('data'),
-            Text('data'),
+            const Text('data'),
+            const Text('data'),
+            const Text('data'),
+            IconButton(onPressed: auth.logout, icon: const Icon(Icons.abc)),
           ],
         ),
       ),

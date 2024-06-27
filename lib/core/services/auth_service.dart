@@ -4,6 +4,9 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../app/modules/modules.dart';
 
 class AuthException implements Exception {
   String message;
@@ -13,7 +16,7 @@ class AuthException implements Exception {
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  User? usuario;
+  User? _user;
   bool isLoading = true;
 
   AuthService() {
@@ -22,15 +25,17 @@ class AuthService extends ChangeNotifier {
 
   void _authCheck() {
     _auth.authStateChanges().listen((User? user) {
-      usuario = user;
+      _user = user;
       isLoading = false;
       notifyListeners();
     });
   }
 
   void _getUser() {
-    usuario = _auth.currentUser;
+    _user = _auth.currentUser;
+    var vaisefude = _user?.uid ?? '';
 
+    log(vaisefude, name: 'vaisefude');
     log('uruário atualizado', name: '_getUser');
     notifyListeners();
   }
@@ -86,5 +91,9 @@ class AuthService extends ChangeNotifier {
   void logout() async {
     await _auth.signOut();
     _getUser();
+
+    Modular.to.pushNamed(AuthRouteNames.login.fullpath);
   }
+
+  User? get user => _user;
 }
