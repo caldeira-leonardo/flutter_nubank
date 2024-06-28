@@ -13,7 +13,6 @@ import '../../../shared/widgets/custom_divider.dart';
 import '../../../shared/widgets/snackbar.dart';
 import '../auth_routing.dart';
 
-//TODO remover o arrasta pro lado para voltar para a antiga página;
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -121,7 +120,9 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () => NavigatorHelper.pushNamed(
+                              AuthRouteNames.forgotPassword.fullpath,
+                            ),
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all(
                                 Theme.of(context).colorScheme.primary,

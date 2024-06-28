@@ -4,9 +4,10 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app/modules/modules.dart';
+import '../../app/shared/validators/navigator_helper.dart';
+import 'user/user_service.dart';
 
 class AuthException implements Exception {
   String message;
@@ -33,11 +34,14 @@ class AuthService extends ChangeNotifier {
 
   void _getUser() {
     _user = _auth.currentUser;
-    var vaisefude = _user?.uid ?? '';
 
-    log(vaisefude, name: 'vaisefude');
-    log('uruário atualizado', name: '_getUser');
     notifyListeners();
+  }
+
+  Future<void> forgotPassword({required String email}) async {
+    await _auth.sendPasswordResetEmail(
+      email: email,
+    );
   }
 
   Future<String> registrar({
@@ -49,6 +53,11 @@ class AuthService extends ChangeNotifier {
         email: email,
         password: password,
       );
+
+      var userId = _auth.currentUser?.uid ?? '';
+
+      log(userId, name: 'userId');
+      if (userId.isNotEmpty) UserService().createUser(userId: userId);
 
       _getUser();
       return 'Success';
@@ -92,7 +101,7 @@ class AuthService extends ChangeNotifier {
     await _auth.signOut();
     _getUser();
 
-    Modular.to.pushNamed(AuthRouteNames.login.fullpath);
+    NavigatorHelper.navigate(AuthRouteNames.login.fullpath);
   }
 
   User? get user => _user;

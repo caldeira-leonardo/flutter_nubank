@@ -52,6 +52,14 @@ class _NewAccountState extends State<NewAccount> {
   }
 
   @override
+  void dispose() {
+    password.dispose();
+    confirmPassword.dispose();
+    email.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

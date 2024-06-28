@@ -60,7 +60,29 @@ class _HomePageState extends State<HomePage> {
             const Text('data'),
             const Text('data'),
             const Text('data'),
-            IconButton(onPressed: auth.logout, icon: const Icon(Icons.abc)),
+            Spacing.sm.vertical,
+            InkWell(
+              onTap: auth.logout,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.logout_outlined,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  Spacing.xs.horizontal,
+                  Text(
+                    'Logout',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                  Spacing.xs.horizontal,
+                ],
+              ),
+            ),
           ],
         ),
       ),

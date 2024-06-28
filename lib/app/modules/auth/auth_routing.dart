@@ -1,6 +1,6 @@
 import '../../app_routing.dart';
 
-enum AuthRouteNames { login, newAccount }
+enum AuthRouteNames { login, newAccount, forgotPassword }
 
 extension AuthRouteNamesExtension on AuthRouteNames {
   String get _path {
@@ -9,6 +9,8 @@ extension AuthRouteNamesExtension on AuthRouteNames {
         return '/login';
       case AuthRouteNames.newAccount:
         return '/newAccount';
+      case AuthRouteNames.forgotPassword:
+        return '/forgotPassword';
     }
   }
 
